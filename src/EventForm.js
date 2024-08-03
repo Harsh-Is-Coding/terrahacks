@@ -122,15 +122,20 @@ const EventForm = () => {
               onChange={(e) => setLocation(e.target.value)}
               required
             />
-            <button type="button" onClick={geocodeLocation}>
+            {/* Commenting out the Get Coordinates button */}
+            {/* <button type="button" onClick={geocodeLocation}>
               Get Coordinates
-            </button>
+            </button> */}
             {geo && (
               <div className="geo-info">
                 <p>Latitude: {geo.lat}, Longitude: {geo.lng}</p>
               </div>
             )}
-            <ImageUpload onUploadComplete={setImageURL} />
+            <ImageUpload onUploadComplete={(url) => {
+              setImageURL(url);
+              // Automatically call geocodeLocation if needed
+              geocodeLocation();
+            }} />
             <button type="submit">Create Event</button>
           </form>
         </div>
