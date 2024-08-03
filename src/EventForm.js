@@ -1,7 +1,9 @@
+// EventForm.js
 import React, { useState, useEffect } from 'react';
 import { db } from './FirebaseConfig'; // Ensure Firestore is initialized and configured
 import { collection, addDoc } from 'firebase/firestore';
 import ImageUpload from './ImageUpload';
+import './EventFormStyles.css'; // Import the CSS file
 
 const EventForm = () => {
   const [title, setTitle] = useState('');
@@ -13,16 +15,14 @@ const EventForm = () => {
   const [isOrganizer, setIsOrganizer] = useState(false);
 
   useEffect(() => {
-    // Check if the user is an organizer when the component mounts
     const checkIsOrganizer = () => {
       const organizerStatus = localStorage.getItem('isOrganizer') === 'true';
       setIsOrganizer(organizerStatus);
     };
 
     checkIsOrganizer();
-  }, []); // Empty dependency array ensures this runs only once
+  }, []);
 
-  // Function to geocode the location address using Nominatim
   const geocodeLocation = async () => {
     const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(location)}&format=json&addressdetails=1`;
 
@@ -67,18 +67,16 @@ const EventForm = () => {
         date: new Date(date),
         location,
         image: imageURL,
-        geo, // Include geo data in the event
+        geo,
         eventAuthor,
       };
 
       console.log('Event data to be submitted:', eventData);
 
-      // Save the event data to Firestore
       await addDoc(collection(db, 'events'), eventData);
 
       console.log('Event created successfully in Firestore');
 
-      // Clear form fields
       setTitle('');
       setDesc('');
       setDate('');
@@ -92,11 +90,11 @@ const EventForm = () => {
   };
 
   return (
-    <div>
+    <div className="event-form-container">
       {isOrganizer ? (
         <div>
-          <h2>Create Event</h2>
-          <form onSubmit={handleSubmit}>
+          <h2 className="event-form-title">Create Event</h2>
+          <form className="event-form" onSubmit={handleSubmit}>
             <input
               type="text"
               placeholder="Title"
@@ -128,9 +126,9 @@ const EventForm = () => {
               Get Coordinates
             </button>
             {geo && (
-              <p>
-                Latitude: {geo.lat}, Longitude: {geo.lng}
-              </p>
+              <div className="geo-info">
+                <p>Latitude: {geo.lat}, Longitude: {geo.lng}</p>
+              </div>
             )}
             <ImageUpload onUploadComplete={setImageURL} />
             <button type="submit">Create Event</button>

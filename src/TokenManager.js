@@ -1,10 +1,8 @@
-// TokenManager.js
 import React, { useState, useEffect } from 'react';
 import { auth, db } from './FirebaseConfig';
 import { doc, getDoc, setDoc, updateDoc, collection, addDoc } from 'firebase/firestore';
 import Leaderboard from './Leaderboard';
 import { v4 as uuidv4 } from 'uuid';
-import './leaderboardStyles.css'; // Import the CSS file
 
 const TokenManager = () => {
   const [tokens, setTokens] = useState(0);
@@ -24,7 +22,7 @@ const TokenManager = () => {
           setTokens(userData.tokens);
           username = userData.username;
           setTokenIds(userData.token_ids || []);
-          setIsOrganizer(docSnap.data().isOrganizer);
+          setIsOrganizer(userData.isOrganizer);
           if (localStorage.getItem('isOrganizer') === 'true') {
             setIsOrganizer(true);
           } else {
@@ -75,14 +73,64 @@ const TokenManager = () => {
     }
   };
 
+  const styles = {
+    container: {
+      maxWidth: '800px',
+      margin: '0 auto',
+      padding: '20px',
+      backgroundColor: '#f8f9fa',
+      borderRadius: '10px',
+      boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    },
+    title: {
+      textAlign: 'center',
+      color: '#333',
+      marginBottom: '20px',
+      fontSize: '2rem',
+    },
+    buttonContainer: {
+      display: 'flex',
+      justifyContent: 'center',
+      gap: '10px', // Space between buttons
+      marginBottom: '20px',
+    },
+    button: {
+      padding: '10px 20px',
+      border: 'none',
+      borderRadius: '5px',
+      color: 'white',
+      backgroundColor: '#007bff',
+      fontSize: '1rem',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s ease',
+    },
+    buttonHover: {
+      backgroundColor: '#0056b3',
+    },
+  };
+
   return (
-    <div className="token-manager-container">
+    <div style={styles.container}>
       {isOrganizer && (
         <div>
-          <h2 className="token-manager-title">Token Balance: {tokens}</h2>
-          <div className="token-manager-buttons">
-            <button onClick={addToken}>Add +1 Token</button>
-            <button onClick={subtractToken}>Subtract -1 Token</button>
+          <h2 style={styles.title}>Token Balance: {tokens}</h2>
+          <div style={styles.buttonContainer}>
+            <button
+              style={styles.button}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'}
+              onClick={addToken}
+            >
+              Add +1 Token
+            </button>
+            <button
+              style={styles.button}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'}
+              onClick={subtractToken}
+            >
+              Subtract -1 Token
+            </button>
           </div>
         </div>
       )}
