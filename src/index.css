@@ -46,17 +46,20 @@ code {
 .event{
   display: grid;
   margin: 2vh 0;
-  padding: 2vh;
   border: 1px solid black;
-  border-radius: 20%;
+  border-radius: 5%;
   width: 50%;
+  height: min-content;
+  align-items: center;
 }
 
 .event-image{
+  padding: 2vh;
   width: 90%;
   height: min-content;
   border: 1px solid black;
   border-radius: 20%;
+  align-self: center;
 }
 
 .event-title{

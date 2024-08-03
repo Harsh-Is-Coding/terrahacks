@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { auth, db } from './FirebaseConfig'; // Ensure Firestore is initialized and configured
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 
 const Login = () => {
   const [identifier, setIdentifier] = useState(''); // Can be either email or username
   const [password, setPassword] = useState('');
+  const [isOrganizer, setIsOrganizer] = useState(false);
 
   const handleLogin = async () => {
     try {
@@ -25,10 +26,26 @@ const Login = () => {
 
         const userDoc = querySnapshot.docs[0];
         userEmail = userDoc.data().email;
+        setIsOrganizer(userDoc.data().isOrganizer);
       }
 
       // Log in with the obtained email and password
       await signInWithEmailAndPassword(auth, userEmail, password);
+
+      // Retrieve user data after login to confirm role
+      const user = auth.currentUser;
+      if (user) {
+        const userRef = doc(db, 'users', user.uid);
+        const userDoc = await getDoc(userRef);
+        if (userDoc.exists()) {
+          setIsOrganizer(userDoc.data().isOrganizer);
+          localStorage.setItem('isOrganizer', userDoc.data().isOrganizer);
+          console.log('User found:', userDoc.data().isOrganizer);
+        } else {
+          console.error('User data not found');
+        }
+      }
+
       console.log('Logged in successfully');
     } catch (error) {
       console.error('Error logging in:', error);

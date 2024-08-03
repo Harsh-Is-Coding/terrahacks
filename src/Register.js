@@ -24,6 +24,7 @@ const Register = () => {
       // Store user info in Firestore
       await setDoc(doc(db, 'users', user.uid), {
         id: uuidv4(),
+        token_ids: [""],
         username: username,
         email: email,
         tokens: 0,
@@ -31,6 +32,8 @@ const Register = () => {
       });
 
       console.log('Registered successfully');
+      localStorage.setItem('isOrganizer', isOrganizer);
+      console.log('User registered:', isOrganizer);
     } catch (error) {
       console.error('Error registering:', error);
     }

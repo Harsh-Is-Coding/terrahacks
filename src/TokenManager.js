@@ -1,31 +1,39 @@
-// TokenManager.js
 import React, { useState, useEffect } from 'react';
-import { auth, db } from './FirebaseConfig'; // Ensure 'db' is correctly imported
-import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { auth, db } from './FirebaseConfig';
+import { doc, getDoc, setDoc, updateDoc, collection, addDoc } from 'firebase/firestore';
 import Leaderboard from './Leaderboard';
+import { v4 as uuidv4 } from 'uuid';
 
 const TokenManager = () => {
   const [tokens, setTokens] = useState(0);
   const [user, setUser] = useState(null);
+  const [tokenIds, setTokenIds] = useState([]);
+  let username = '';
+  const [isOrganizer, setIsOrganizer] = useState(false);
+
+  
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((authUser) => {
+    const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
       setUser(authUser);
       if (authUser) {
-        const fetchTokens = async () => {
-          const docRef = doc(db, 'users', authUser.uid);
-          const docSnap = await getDoc(docRef);
-          if (docSnap.exists()) {
-            const userData = docSnap.data();
-            setTokens(userData.tokens);
-          } else {
-            // If no data exists, create a new record with 0 tokens
-            await setDoc(docRef, { tokens: 0 });
-            setTokens(0);
+        const docRef = doc(db, 'users', authUser.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const userData = docSnap.data();
+          setTokens(userData.tokens);
+          username = userData.username;
+          setTokenIds(userData.token_ids || []);
+          setIsOrganizer( docSnap.data().isOrganizer);
+          if (localStorage.getItem('isOrganizer') === 'true') {
+            setIsOrganizer(true);
+          }else{
+            setIsOrganizer(false);
           }
-        };
-
-        fetchTokens();
+        } else {
+          await setDoc(docRef, { tokens: 0, token_ids: [] });
+          setTokens(0);
+        }
       }
     });
 
@@ -34,31 +42,48 @@ const TokenManager = () => {
 
   const addToken = async () => {
     if (user) {
+      const tokenId = uuidv4();
       const newTokenCount = tokens + 1;
+      const updatedTokenIds = [...tokenIds, tokenId];
+
       setTokens(newTokenCount);
-      const docRef = doc(db, 'users', user.uid); // Corrected from user.id to user.uid
-      await updateDoc(docRef, { tokens: newTokenCount });
+      setTokenIds(updatedTokenIds);
+
+      const docRef = doc(db, 'users', user.uid);
+      await updateDoc(docRef, { tokens: newTokenCount, token_ids: updatedTokenIds });
+      await addDoc(collection(db, 'tokens'), {
+        id: tokenId,
+        user: username,
+      });
     } else {
       console.error('User is not authenticated');
     }
   };
 
   const subtractToken = async () => {
-    if (user) {
-      const newTokenCount = tokens > 0 ? tokens - 1 : 0;
+    if (user && tokens > 0) {
+      const newTokenCount = tokens - 1;
+      const updatedTokenIds = tokenIds.slice(0, -1);
+
       setTokens(newTokenCount);
-      const docRef = doc(db, 'users', user.uid); // Corrected from user.iid to user.uid
-      await updateDoc(docRef, { tokens: newTokenCount });
+      setTokenIds(updatedTokenIds);
+
+      const docRef = doc(db, 'users', user.uid);
+      await updateDoc(docRef, { tokens: newTokenCount, token_ids: updatedTokenIds });
     } else {
-      console.error('User is not authenticated');
+      console.error('User is not authenticated or no tokens to subtract');
     }
   };
 
   return (
     <div>
-      <h2>Token Balance: {tokens}</h2>
-      <button onClick={addToken}>Add +1 Token</button>
-      <button onClick={subtractToken}>Subtract -1 Token</button>
+      {isOrganizer && (
+        <div>
+          <h2>Token Balance: {tokens}</h2>
+          <button onClick={addToken}>Add +1 Token</button>
+          <button onClick={subtractToken}>Subtract -1 Token</button>
+        </div>
+      )}
       <Leaderboard />
     </div>
   );

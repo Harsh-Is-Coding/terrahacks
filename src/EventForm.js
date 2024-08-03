@@ -1,5 +1,4 @@
-// EventForm.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db } from './FirebaseConfig'; // Ensure Firestore is initialized and configured
 import { collection, addDoc } from 'firebase/firestore';
 import ImageUpload from './ImageUpload';
@@ -10,10 +9,18 @@ const EventForm = () => {
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
   const [imageURL, setImageURL] = useState('');
-  const [geo, setgeo] = useState(null);
+  const [geo, setGeo] = useState(null);
+  const [isOrganizer, setIsOrganizer] = useState(false);
 
-  // Function to generate a random eventID
-  
+  useEffect(() => {
+    // Check if the user is an organizer when the component mounts
+    const checkIsOrganizer = () => {
+      const organizerStatus = localStorage.getItem('isOrganizer') === 'true';
+      setIsOrganizer(organizerStatus);
+    };
+
+    checkIsOrganizer();
+  }, []); // Empty dependency array ensures this runs only once
 
   // Function to geocode the location address using Nominatim
   const geocodeLocation = async () => {
@@ -26,7 +33,7 @@ const EventForm = () => {
         const result = data[0];
         const lat = parseFloat(result.lat);
         const lon = parseFloat(result.lon);
-        setgeo({ lat, lng: lon });
+        setGeo({ lat, lng: lon });
         console.log('Coordinates:', { lat, lon });
       } else {
         console.error('No results found for the location.');
@@ -77,7 +84,7 @@ const EventForm = () => {
       setDate('');
       setLocation('');
       setImageURL('');
-      setgeo(null);
+      setGeo(null);
     } catch (error) {
       console.error('Error creating event:', error);
       alert('Error creating event. Please try again.');
@@ -85,45 +92,53 @@ const EventForm = () => {
   };
 
   return (
-    <div style={{zIndex: 2}}>
-      <h2>Create Event</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        <textarea
-          placeholder="Description"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
-          required
-        />
-        <input
-          type="datetime-local"
-          placeholder="Date"
-          value={date}
-          onChange={(e) => setDate(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-        />
-        <button type="button" onClick={geocodeLocation}>Get Coordinates</button>
-        {geo && (
-          <p>
-            Latitude: {geo.lat}, Longitude: {geo.lng}
-          </p>
-        )}
-        <ImageUpload onUploadComplete={setImageURL} />
-        <button type="submit">Create Event</button>
-      </form>
+    <div>
+      {isOrganizer ? (
+        <div>
+          <h2>Create Event</h2>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              placeholder="Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              required
+            />
+            <textarea
+              placeholder="Description"
+              value={desc}
+              onChange={(e) => setDesc(e.target.value)}
+              required
+            />
+            <input
+              type="datetime-local"
+              placeholder="Date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
+            <button type="button" onClick={geocodeLocation}>
+              Get Coordinates
+            </button>
+            {geo && (
+              <p>
+                Latitude: {geo.lat}, Longitude: {geo.lng}
+              </p>
+            )}
+            <ImageUpload onUploadComplete={setImageURL} />
+            <button type="submit">Create Event</button>
+          </form>
+        </div>
+      ) : (
+        <h2>Only organizers can create</h2>
+      )}
     </div>
   );
 };
