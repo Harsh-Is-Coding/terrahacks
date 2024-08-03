@@ -5,89 +5,139 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(
+    to top right,
+    #1A5319,
+    #508D4E
+  );
+  background-repeat: no-repeat; /* Ensure background gradient does not repeat */
+  background-size: cover; /* Cover the entire background area */
+  background-attachment: fixed; /* Keep the background fixed during scroll */
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
- .header {
+
+a:-webkit-any-link {
+  color: #E2E2B6;
+  cursor: pointer;
+  text-decoration: none; /* No underline by default */
+  font-weight: normal;
+}
+
+a:-webkit-any-link:hover {
+  text-decoration: underline; /* Underline on hover */
+  font-weight: bold;
+}
+
+.header {
   display: flex;
-  background-color: #f1f1f1;
+  background-color: #1b6119;
   padding: 3vh;
   text-align: center;
   color: black;
   font-family: 'Courier New', Courier, monospace;
- }
- .header-title {
+  opacity: 0.7; /* Initially semi-transparent */
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.header:hover {
+  opacity: 1; /* Fully opaque on hover */
+}
+
+.header-logo{
+  display: inline;
+  margin-right: 2vw;
+  width: 10vh;
+}
+
+.header-title {
   font-size: 35px;
   color: black;  
- }
+}
 
- .header-nav {
+.header-nav {
   display: inline;
   margin-top: 2vh;
- }
-  .header-item{
-    display: inline;
-    margin: 0 1vw;
-    font-size: 20px;
-    color: black;
-    text-decoration: none;
-  }
+}
 
+.header-item {
+  display: inline;
+  margin: 0 1vw;
+  font-size: 20px;
+  color: black;
+  text-decoration: none;
+}
 
-.eventHolder{
+.header-item link {
+  color: black;
+}
+
+.eventHolder {
   display: grid;
   margin: 0 5vw;
   left: 0;
 }
 
-.event{
-  display: grid;
+.event {
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center items horizontally */
   margin: 2vh 0;
-  border: 1px solid black;
-  border-radius: 5%;
+  padding-top: 2%;
+  border: 1px solid #006400; /* Dark green border */
+  border-radius: 10px;
   width: 50%;
   height: min-content;
-  align-items: center;
+  background-color: #80AF81; /* Light green background */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
 }
 
-.event-image{
-  padding: 2vh;
+.event:hover {
+  transform: scale(1.03); /* Slightly scale up on hover */
+  box-shadow: 0 8px 16px rgba(0, 100, 0, 0.3); /* Green shadow on hover */
+}
+
+.event-image {
   width: 90%;
-  height: min-content;
-  border: 1px solid black;
-  border-radius: 20%;
-  align-self: center;
+  height: auto; /* Maintain aspect ratio */
+  border: 1px solid #004d00; /* Darker green border */
+  border-radius: 10px;
 }
 
-.event-title{
+.event-title {
   font-size: 7vh;
   font-weight: bold;
+  color: #004d00; /* Dark green text */
 }
 
-.event-description{
+.event-description {
   font-size: 2vh;
+  color: #003300; /* Darker green text */
 }
 
-.event-date{
+.event-date {
   font-size: 3vh;
+  color: #003300; /* Darker green text */
 }
 
-.event-location{
+.event-location {
   font-size: 3vh;
+  color: #003300; /* Darker green text */
 }
 
-.map{
-  transition: box-shadow 0.3s ease-in-out;
-}
-.map:hover{
-  box-shadow: 0 4px 12px rgb(245, 7, 7);;
+.map {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.map:hover {
+  transform: scale(1.03); /* Slightly scale up on hover */
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.581);
+}
 
-.loading{
+.loading {
   align-self: center;
   font-size: 30vh;
   color: black;

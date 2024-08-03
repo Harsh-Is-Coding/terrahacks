@@ -104,6 +104,7 @@ const MapboxExample = (props) => {
         borderRadius: '20%',
         zIndex: 1 // Ensure it is above other content if necessary
       }}
+      className='map'
     />
   );
 };

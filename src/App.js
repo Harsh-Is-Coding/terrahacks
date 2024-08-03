@@ -1,5 +1,3 @@
-import logo from './logo.svg';
-import './App.css';
 import './index.css'
 import Header from './header.js';
 import Home from './home.js';
