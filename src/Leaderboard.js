@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './FirebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
+import './leaderboardStyles.css'; // Import the CSS file
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
@@ -26,9 +27,9 @@ const Leaderboard = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Leaderboard</h2>
-      <table>
+    <div className="leaderboard-container">
+      <h2 className="leaderboard-title">Leaderboard</h2>
+      <table className="leaderboard-table">
         <thead>
           <tr>
             <th>Rank</th>
@@ -37,13 +38,20 @@ const Leaderboard = () => {
           </tr>
         </thead>
         <tbody>
-          {users.map((user, index) => (
-            <tr key={user.id}>
-              <td>{index + 1}</td>
-              <td>{user.username || "Anonymous"}</td>
-              <td>{user.tokens}</td>
-            </tr>
-          ))}
+          {users.map((user, index) => {
+            let rowClass = '';
+            if (index === 0) rowClass = 'gold';
+            else if (index === 1) rowClass = 'silver';
+            else if (index === 2) rowClass = 'bronze';
+
+            return (
+              <tr key={user.id} className={rowClass}>
+                <td>{index + 1}</td>
+                <td>{user.username || "Anonymous"}</td>
+                <td>{user.tokens}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

@@ -1,8 +1,10 @@
+// TokenManager.js
 import React, { useState, useEffect } from 'react';
 import { auth, db } from './FirebaseConfig';
 import { doc, getDoc, setDoc, updateDoc, collection, addDoc } from 'firebase/firestore';
 import Leaderboard from './Leaderboard';
 import { v4 as uuidv4 } from 'uuid';
+import './leaderboardStyles.css'; // Import the CSS file
 
 const TokenManager = () => {
   const [tokens, setTokens] = useState(0);
@@ -10,8 +12,6 @@ const TokenManager = () => {
   const [tokenIds, setTokenIds] = useState([]);
   let username = '';
   const [isOrganizer, setIsOrganizer] = useState(false);
-
-  
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (authUser) => {
@@ -24,10 +24,10 @@ const TokenManager = () => {
           setTokens(userData.tokens);
           username = userData.username;
           setTokenIds(userData.token_ids || []);
-          setIsOrganizer( docSnap.data().isOrganizer);
+          setIsOrganizer(docSnap.data().isOrganizer);
           if (localStorage.getItem('isOrganizer') === 'true') {
             setIsOrganizer(true);
-          }else{
+          } else {
             setIsOrganizer(false);
           }
         } else {
@@ -76,12 +76,14 @@ const TokenManager = () => {
   };
 
   return (
-    <div>
+    <div className="token-manager-container">
       {isOrganizer && (
         <div>
-          <h2>Token Balance: {tokens}</h2>
-          <button onClick={addToken}>Add +1 Token</button>
-          <button onClick={subtractToken}>Subtract -1 Token</button>
+          <h2 className="token-manager-title">Token Balance: {tokens}</h2>
+          <div className="token-manager-buttons">
+            <button onClick={addToken}>Add +1 Token</button>
+            <button onClick={subtractToken}>Subtract -1 Token</button>
+          </div>
         </div>
       )}
       <Leaderboard />
