@@ -1,9 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { auth, db, storage } from "./FirebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import React, { useEffect, useRef } from 'react';
+
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { icon } from 'leaflet';
 
 const MapboxExample = (props) => {
   const mapContainerRef = useRef();

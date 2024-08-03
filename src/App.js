@@ -1,58 +1,30 @@
 import logo from './logo.svg';
 import './App.css';
-import { Container, Row, Col } from "react-bootstrap";
 import './index.css'
 import Header from './header.js';
-import Event from './event.js';
-import MapboxExample from './map.js' ;
-import React, { useEffect, useState } from "react";
-import cong from "./FirebaseConfig"; // Assuming the correct path to your configuration file
-import { auth, db, storage } from "./FirebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import Home from './home.js';
+import EventForm from './EventForm.js';
+import Login from './Login.js';
+import TokenManager from './TokenManager.js';
+import Register from './Register.js';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-function timestampToDateString(timestamp) {
-  const date = new Date(timestamp.seconds * 1000);
-  return date.toLocaleDateString();
-}
+
 function App() {
-  const [data, setData] = useState([]);
- 
-    const fetchPost = async () => {
-       
-        await getDocs(collection(db, "events"))
-            .then((querySnapshot)=>{               
-                const newData = querySnapshot.docs
-                    .map((doc) => ({...doc.data(), id:doc.id }));
-                setData(newData);          
-            })
-       
-    }
-    useEffect(()=>{
-        fetchPost();
-    }, [])
-  
-    console.log(data);
-  if (data.length === 0) {
-    return <div className='loading'>Loading...</div>;
-  }
   return (
-    <div className="App">
-      <Header />
-      <MapboxExample className='map' events={data}/>
-      <Row className='eventHolder'>
-      {data.map((event, index) => (
-          <Col md={4} key={index} className='Event'>
-            <Event
-              image={event.image}
-              title={event.title}
-              description={event.desc}
-              date={timestampToDateString(event.date)}
-              location={event.location}
-            />
-          </Col>
-        ))}
-      </Row>
-    </div>
+      <Router>
+      <div>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/EventForm" element={<EventForm />} />
+          <Route path="/TokenManager" element={<TokenManager />} />
+          <Route path="/Login" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
