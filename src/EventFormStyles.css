@@ -1,5 +1,6 @@
 /* EventFormStyles.css */
 
+/* Container for the event form */
 .event-form-container {
   max-width: 800px;
   margin: 0 auto;
@@ -7,64 +8,83 @@
   background-color: #f8f9fa;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
 }
 
+/* Title of the form */
 .event-form-title {
   text-align: center;
   color: #333;
   margin-bottom: 20px;
   font-size: 2rem;
+  animation: fadeIn 1s ease-in-out;
 }
 
+/* Form layout */
 .event-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
+/* Form inputs, textareas, and buttons */
 .event-form input,
 .event-form textarea,
 .event-form button {
   padding: 10px;
   border: 1px solid #ced4da;
   border-radius: 5px;
+  transition: all 0.3s ease;
 }
 
+/* Input and textarea focus styles */
+.event-form input:focus,
+.event-form textarea:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Input and datetime-local fields */
 .event-form input[type="text"],
 .event-form input[type="datetime-local"] {
   font-size: 1rem;
 }
 
+/* Textarea styles */
 .event-form textarea {
   font-size: 1rem;
   min-height: 100px;
 }
 
+/* Button styles */
 .event-form button {
   background-color: #007bff;
   color: white;
   border: none;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+/* Button hover effects */
 .event-form button:hover {
   background-color: #0056b3;
   transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
 
+/* Geo-info display */
 .event-form .geo-info {
   background-color: #e9ecef;
   padding: 10px;
   border-radius: 5px;
   margin-top: 10px;
   text-align: center;
+  animation: slideIn 0.5s ease-out;
 }
-/* EventFormStyles.css */
 
-/* Existing styles */
-
+/* Container for the image upload */
 .image-upload-container {
   display: flex;
   flex-direction: column;
@@ -72,6 +92,7 @@
   gap: 10px;
 }
 
+/* Image upload label */
 .image-upload-label {
   cursor: pointer;
   padding: 10px;
@@ -81,24 +102,53 @@
   text-align: center;
   width: 100%;
   max-width: 300px;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
+/* Image upload label hover effect */
 .image-upload-label:hover {
   background-color: #f1f3f5;
   border-color: #adb5bd;
+  transform: scale(1.02);
 }
 
+/* Placeholder text for the image upload */
 .upload-placeholder {
   font-size: 1rem;
   color: #6c757d;
 }
 
+/* Image preview */
 .image-preview {
   margin-top: 10px;
   max-width: 100%;
   height: auto;
   border-radius: 5px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
 }
 
+/* Keyframes for animations */
+
+/* Fade in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide in effect */
+@keyframes slideIn {
+  from {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
