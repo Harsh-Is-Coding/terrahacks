@@ -97,9 +97,9 @@ const Register = () => {
 const styles = {
   container: {
     maxWidth: '400px',
-    margin: '0 auto',
+    margin: '2% auto',
     padding: '20px',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#80af8185',
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     animation: 'fadeIn 1s ease-in-out',
@@ -117,7 +117,7 @@ const styles = {
     flexDirection: 'column',
   },
   input: {
-    width: '100%',
+    width: '96%',
     padding: '10px',
     margin: '10px 0',
     border: '1px solid #ccc',

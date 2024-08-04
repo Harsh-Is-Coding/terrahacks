@@ -92,7 +92,7 @@ const styles = {
     maxWidth: '50%',
     margin: '3% auto',
     padding: '20px',
-    backgroundColor: '#D6EFD8',
+    backgroundColor: '#80af8185',
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     animation: 'fadeIn 1s ease-in-out',

@@ -5,11 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(
-    to top right,
-    #1A5319,
-    #508D4E
-  );
+  background: linear-gradient(to top right, #1a5319c7, #508d4ecb), url('./background.png');
   background-repeat: no-repeat; /* Ensure background gradient does not repeat */
   background-size: cover; /* Cover the entire background area */
   background-attachment: fixed; /* Keep the background fixed during scroll */
@@ -47,7 +43,7 @@ a:-webkit-any-link:hover {
   opacity: 1; /* Fully opaque on hover */
 }
 
-.header-logo{
+.header-logo {
   display: inline;
   margin-right: 2vw;
   width: 10vh;
@@ -91,7 +87,7 @@ a:-webkit-any-link:hover {
   border-radius: 10px;
   width: 50%;
   height: min-content;
-  background-color: #80AF81; /* Light green background */
+  background-color: #80af81c1; /* Light green background */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
 }
 
