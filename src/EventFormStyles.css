@@ -5,7 +5,7 @@
   max-width: 800px;
   margin: 3% auto;
   padding: 20px;
-  background-color: #80af8185;
+  background-color: rgba(128, 175, 129, 0.5);  /* Adjusted for slight transparency */
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   animation: fadeIn 1s ease-in-out;
@@ -40,8 +40,8 @@
 /* Input and textarea focus styles */
 .event-form input:focus,
 .event-form textarea:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  border-color: #2B702E; /* Dark green for focus */
+  box-shadow: 0 0 5px rgba(43, 112, 46, 0.5); /* Dark green for focus shadow */
 }
 
 /* Input and datetime-local fields */
@@ -58,7 +58,7 @@
 
 /* Button styles */
 .event-form button {
-  background-color: #007bff;
+  background-color: #2B702E; /* Dark green */
   color: white;
   border: none;
   cursor: pointer;
@@ -69,7 +69,7 @@
 
 /* Button hover effects */
 .event-form button:hover {
-  background-color: #0056b3;
+  background-color: #1f5d23; /* Slightly darker green for hover */
   transform: scale(1.05);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
 }
