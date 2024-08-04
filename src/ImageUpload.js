@@ -1,40 +1,27 @@
-// ImageUpload.js
-import React, { useState } from 'react';
-import { storage } from './FirebaseConfig'; // Ensure Firestore is initialized and configured';
-import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
+import React, { useRef } from 'react';
+
 const ImageUpload = ({ onUploadComplete }) => {
-  const [preview, setPreview] = useState('');
+  const fileInputRef = useRef(null);
 
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
     if (file) {
-      const reader = new FileReader();
-
-      reader.onloadend = () => {
-        setPreview(reader.result);
-        // Simulate image upload to server and get the URL
-        // Replace this with actual upload logic
-        const fakeUploadURL = URL.createObjectURL(file); // Example, replace with actual upload
-        onUploadComplete(fakeUploadURL);
-      };
-
-      reader.readAsDataURL(file);
+      onUploadComplete(file);
+    } else {
+      console.error('No file selected');
     }
   };
 
   return (
-    <div className="image-upload-container">
+    <div className="image-upload">
       <input
         type="file"
         accept="image/*"
-        onChange={handleImageUpload}
+        ref={fileInputRef}
+        onChange={handleFileChange}
         style={{ display: 'none' }}
-        id="image-upload"
       />
-      <label htmlFor="image-upload" className="image-upload-label">
-        <div className="upload-placeholder">Upload Image</div>
-      </label>
-      {preview && <img src={preview} alt="Image Preview" className="image-preview" />}
+      <button type="button" onClick={() => fileInputRef.current.click()}>Upload Image</button>
     </div>
   );
 };

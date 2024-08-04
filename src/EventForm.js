@@ -1,7 +1,8 @@
 // EventForm.js
 import React, { useState, useEffect } from 'react';
-import { db } from './FirebaseConfig'; // Ensure Firestore is initialized and configured
+import { db, storage } from './FirebaseConfig'; // Ensure Firestore and Storage are initialized and configured
 import { collection, addDoc } from 'firebase/firestore';
+import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import ImageUpload from './ImageUpload';
 import './EventFormStyles.css'; // Import the CSS file
 
@@ -10,7 +11,7 @@ const EventForm = () => {
   const [desc, setDesc] = useState('');
   const [date, setDate] = useState('');
   const [location, setLocation] = useState('');
-  const [imageURL, setImageURL] = useState('');
+  const [imageFile, setImageFile] = useState(null);
   const [geo, setGeo] = useState(null);
   const [isOrganizer, setIsOrganizer] = useState(false);
 
@@ -43,10 +44,37 @@ const EventForm = () => {
     }
   };
 
+  const handleImageUpload = async () => {
+    if (!imageFile) {
+      console.error('No image file selected');
+      return null;
+    }
+
+    const storageRef = ref(storage, `images/${imageFile.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, imageFile);
+
+    return new Promise((resolve, reject) => {
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          // Handle upload progress if needed
+        },
+        (error) => {
+          console.error('Error uploading image:', error);
+          reject(error);
+        },
+        async () => {
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          resolve(downloadURL);
+        }
+      );
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!imageURL) {
+    if (!imageFile) {
       console.error('No image uploaded');
       alert('Please upload an image before creating the event.');
       return;
@@ -59,6 +87,13 @@ const EventForm = () => {
     }
 
     try {
+      const imageURL = await handleImageUpload();
+      if (!imageURL) {
+        console.error('Error getting image URL');
+        alert('Error uploading image. Please try again.');
+        return;
+      }
+
       const eventAuthor = "Anonymous"; // Replace with actual user data if needed
 
       const eventData = {
@@ -81,7 +116,7 @@ const EventForm = () => {
       setDesc('');
       setDate('');
       setLocation('');
-      setImageURL('');
+      setImageFile(null);
       setGeo(null);
     } catch (error) {
       console.error('Error creating event:', error);
@@ -122,17 +157,13 @@ const EventForm = () => {
               onChange={(e) => setLocation(e.target.value)}
               required
             />
-            {/* Commenting out the Get Coordinates button */}
-            {/* <button type="button" onClick={geocodeLocation}>
-              Get Coordinates
-            </button> */}
             {geo && (
               <div className="geo-info">
                 <p>Latitude: {geo.lat}, Longitude: {geo.lng}</p>
               </div>
             )}
-            <ImageUpload onUploadComplete={(url) => {
-              setImageURL(url);
+            <ImageUpload onUploadComplete={(file) => {
+              setImageFile(file);
               // Automatically call geocodeLocation if needed
               geocodeLocation();
             }} />
@@ -140,7 +171,7 @@ const EventForm = () => {
           </form>
         </div>
       ) : (
-        <h2>Only organizers can create</h2>
+        <h2>Only organizers can create events</h2>
       )}
     </div>
   );
