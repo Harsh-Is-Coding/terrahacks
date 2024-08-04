@@ -84,10 +84,10 @@ const Login = () => {
 // Inline styles for the component
 const styles = {
   container: {
-    maxWidth: '400px',
-    margin: '0 auto',
+    maxWidth: '50%',
+    margin: '3% auto',
     padding: '20px',
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#D6EFD8',
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
     animation: 'fadeIn 1s ease-in-out',
@@ -101,7 +101,7 @@ const styles = {
     animation: 'fadeIn 1s ease-in-out',
   },
   input: {
-    width: '100%',
+    width: '97%',
     padding: '10px',
     margin: '10px 0',
     border: '1px solid #ccc',

@@ -55,7 +55,7 @@ a:-webkit-any-link:hover {
 
 .header-title {
   font-size: 35px;
-  color: black;  
+  color: rgb(173, 164, 146);  
 }
 
 .header-nav {
@@ -65,7 +65,7 @@ a:-webkit-any-link:hover {
 
 .header-item {
   display: inline;
-  margin: 0 1vw;
+  margin: 0 2vw;
   font-size: 20px;
   color: black;
   text-decoration: none;

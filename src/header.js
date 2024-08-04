@@ -10,13 +10,13 @@ const Header = () => {
     }, []);
     return (
         <header className="header">
-            <img src={logo} alt='logo' className="header-logo"/>
+            <img src={logo } alt='logo' className="header-logo"/>
             <h1 className="header-title">EcoHub</h1>
             <nav className="header-nav">
                 <ul className="header-list">
                     <li className="header-item"><Link to='/' >Home</Link></li>
-                    {!isOrganizer && (<li className="header-item"><Link to='/EventForm'>EventForm</Link></li>)}
-                    <li className="header-item"><Link to='/TokenManager'>TokenManager</Link></li>
+                    {!isOrganizer && (<li className="header-item"><Link to='/EventForm'>Event Form</Link></li>)}
+                    <li className="header-item"><Link to='/TokenManager'>Token Manager</Link></li>
                     <li className="header-item"><Link to='/Login'>Login</Link></li>
                     <li className="header-item"><Link to='/Register'>Register</Link></li>
                 </ul>
