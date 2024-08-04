@@ -24,6 +24,9 @@ const Leaderboard = () => {
     fetchLeaderboard();
   }, []);
 
+  // Medals for top three ranks
+  const medals = ['🥇', '🥈', '🥉'];
+
   return (
     <div style={styles.container}>
       <h2 style={styles.title}>Leaderboard</h2>
@@ -49,7 +52,9 @@ const Leaderboard = () => {
                 onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.hover.backgroundColor}
                 onMouseLeave={(e) => e.currentTarget.style.backgroundColor = rowStyle.backgroundColor}
               >
-                <td style={styles.td}>{index + 1}</td>
+                <td style={styles.td}>
+                  {index < medals.length ? medals[index] : index + 1}
+                </td>
                 <td style={styles.td}>{user.username || "Anonymous"}</td>
                 <td style={styles.td}>{user.tokens}</td>
               </tr>
