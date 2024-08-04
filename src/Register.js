@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { auth, db } from './FirebaseConfig'; // Ensure 'auth' and 'db' are correctly imported
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { auth, db } from './FirebaseConfig';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { setDoc, doc } from 'firebase/firestore';
-import { v4 as uuidv4 } from 'uuid'; // Use uuid for generating unique user IDs
+import { v4 as uuidv4 } from 'uuid';
 
 const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [isOrganizer, setIsOrganizer] = useState(false);
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -31,6 +33,9 @@ const Register = () => {
       console.log('Registered successfully');
       localStorage.setItem('isOrganizer', isOrganizer);
       console.log('User registered:', isOrganizer);
+
+      // Redirect to home page after successful registration
+      navigate('/'); // Replace '/' with your actual home page route
     } catch (error) {
       console.error('Error registering:', error);
     }

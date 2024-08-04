@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { auth, db } from './FirebaseConfig'; // Ensure Firestore is initialized and configured
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
+import { auth, db } from './FirebaseConfig';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { collection, query, where, getDocs, doc, getDoc } from 'firebase/firestore';
 
@@ -7,6 +8,7 @@ const Login = () => {
   const [identifier, setIdentifier] = useState(''); // Can be either email or username
   const [password, setPassword] = useState('');
   const [isOrganizer, setIsOrganizer] = useState(false);
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleLogin = async () => {
     try {
@@ -41,6 +43,9 @@ const Login = () => {
           setIsOrganizer(userDoc.data().isOrganizer);
           localStorage.setItem('isOrganizer', userDoc.data().isOrganizer);
           console.log('User found:', userDoc.data().isOrganizer);
+
+          // Redirect to the appropriate page after successful login
+          navigate('/'); // Replace with the desired route after login, e.g., '/dashboard'
         } else {
           console.error('User data not found');
         }
