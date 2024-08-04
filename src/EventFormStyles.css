@@ -1,5 +1,13 @@
 /* EventFormStyles.css */
 
+/* Import Nunito font */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+/* Apply Nunito font to all text */
+body, input, textarea, button {
+  font-family: 'Nunito', sans-serif;
+}
+
 /* Container for the event form */
 .event-form-container {
   max-width: 800px;
