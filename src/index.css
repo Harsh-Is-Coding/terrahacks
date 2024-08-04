@@ -81,12 +81,13 @@ a:-webkit-any-link:hover {
   display: flex; /* Use flexbox for layout */
   flex-direction: column; /* Stack children vertically */
   align-items: center; /* Center items horizontally */
-  margin: 2vh 0;
+  text-align: center;
+  margin: 2vh 2vh 2vh 2vh;
   padding-top: 2%;
   border: 1px solid #006400; /* Dark green border */
   border-radius: 10px;
   width: 50%;
-  height: min-content;
+  height: 95%;
   background-color: #80af81c1; /* Light green background */
   transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transitions for hover effects */
 }
@@ -97,8 +98,8 @@ a:-webkit-any-link:hover {
 }
 
 .event-image {
-  width: 90%;
-  height: auto; /* Maintain aspect ratio */
+  width: auto;
+  height: 40%; /* Maintain aspect ratio */
   border: 1px solid #004d00; /* Darker green border */
   border-radius: 10px;
 }
@@ -107,21 +108,25 @@ a:-webkit-any-link:hover {
   font-size: 7vh;
   font-weight: bold;
   color: #004d00; /* Dark green text */
+  margin: 0 1.2vw ;
 }
 
 .event-description {
-  font-size: 2vh;
+  font-size: 3vh;
   color: #003300; /* Darker green text */
+  margin: 1vh 1.2vw ;
 }
 
 .event-date {
   font-size: 3vh;
   color: #003300; /* Darker green text */
+  margin: 1vh 1.2vw ;
 }
 
 .event-location {
   font-size: 3vh;
   color: #003300; /* Darker green text */
+  margin: 01vh 1.2vw ;
 }
 
 .map {

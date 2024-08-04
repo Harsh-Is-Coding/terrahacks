@@ -1,6 +1,7 @@
 {
   "name": "terrahacks",
   "version": "0.1.0",
+  "homepage": "https://harsh-is-coding.github.io/terrahacks",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -8,6 +9,7 @@
     "@testing-library/user-event": "^13.5.0",
     "canvas-confetti": "^1.9.3",
     "firebase": "^10.12.5",
+    "gh-pages": "^6.1.1",
     "leaflet": "^1.9.4",
     "mapbox-gl": "^3.5.2",
     "react": "^18.3.1",
@@ -19,6 +21,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
