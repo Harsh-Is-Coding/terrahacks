@@ -1,30 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './FirebaseConfig';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, onSnapshot, query, where } from 'firebase/firestore';
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    const fetchLeaderboard = async () => {
-      const querySnapshot = await getDocs(collection(db, 'users'));
+    const usersCollection = collection(db, 'users');
+    const userQuery = query(usersCollection, where('isOrganizer', '==', false));
+    const unsubscribe = onSnapshot(userQuery, (querySnapshot) => {
       const usersData = [];
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
-        // Exclude users who are organizers
-        if (!userData.isOrganizer) {
-          usersData.push({ id: doc.id, ...userData });
-        }
+        usersData.push({ id: doc.id, ...userData });
       });
-      // Sort users by tokens in descending order
       usersData.sort((a, b) => b.tokens - a.tokens);
       setUsers(usersData);
-    };
+    });
 
-    fetchLeaderboard();
+    return () => unsubscribe();
   }, []);
 
-  // Medals for top three ranks
   const medals = ['🥇', '🥈', '🥉'];
 
   return (
@@ -75,6 +71,7 @@ const Leaderboard = () => {
     </div>
   );
 };
+
 
 // Inline styles for the component
 const styles = {
