@@ -122,13 +122,13 @@ const TokenManager = () => {
       border: 'none',
       borderRadius: '5px',
       color: 'white',
-      backgroundColor: '#007bff',
+      backgroundColor: '#2B702E',  // Dark green
       fontSize: '1rem',
       cursor: 'pointer',
       transition: 'background-color 0.3s ease',
     },
     buttonHover: {
-      backgroundColor: '#0056b3',
+      backgroundColor: '#1f5d23',  // Slightly darker green for hover effect
     },
     input: {
       padding: '10px',
@@ -165,7 +165,7 @@ const TokenManager = () => {
             <button
               style={styles.button}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#2B702E'}
               onClick={handleAddToken}
             >
               Add +1 Token
@@ -173,7 +173,7 @@ const TokenManager = () => {
             <button
               style={styles.button}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#2B702E'}
               onClick={handleCheckCurrentTokens}
             >
               Check Current Tokens
@@ -181,7 +181,7 @@ const TokenManager = () => {
             <button
               style={styles.button}
               onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.buttonHover.backgroundColor}
-              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#007bff'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#2B702E'}
               onClick={handleSubtractToken}
             >
               Subtract -1 Token
@@ -198,6 +198,5 @@ const TokenManager = () => {
     </div>
   );
 };
-// hi harshy
 
 export default TokenManager;

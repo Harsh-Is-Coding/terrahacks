@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { db } from './FirebaseConfig';
 import { collection, onSnapshot, query, where } from 'firebase/firestore';
+import confetti from 'canvas-confetti';
 
 const Leaderboard = () => {
   const [users, setUsers] = useState([]);
+  const [hoveredRow, setHoveredRow] = useState(null);
 
   useEffect(() => {
     const usersCollection = collection(db, 'users');
@@ -22,6 +24,17 @@ const Leaderboard = () => {
   }, []);
 
   const medals = ['🥇', '🥈', '🥉'];
+
+  const handleRowClick = (user) => {
+    if (user.tokens === Math.max(...users.map(u => u.tokens))) {
+      // Trigger confetti animation for the top user
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+  };
 
   return (
     <div style={styles.container}>
@@ -44,9 +57,14 @@ const Leaderboard = () => {
             return (
               <tr
                 key={user.id}
-                style={{ ...styles.row, ...rowStyle }}
-                onMouseEnter={(e) => e.currentTarget.style.backgroundColor = styles.hover.backgroundColor}
-                onMouseLeave={(e) => e.currentTarget.style.backgroundColor = rowStyle.backgroundColor}
+                style={{
+                  ...styles.row,
+                  ...rowStyle,
+                  backgroundColor: hoveredRow === user.id ? styles.hover.backgroundColor : rowStyle.backgroundColor,
+                }}
+                onMouseEnter={() => setHoveredRow(user.id)}
+                onMouseLeave={() => setHoveredRow(null)}
+                onClick={() => handleRowClick(user)}
               >
                 <td style={styles.td}>
                   {index < medals.length ? medals[index] : index + 1}
@@ -72,14 +90,13 @@ const Leaderboard = () => {
   );
 };
 
-
 // Inline styles for the component
 const styles = {
   container: {
     maxWidth: '800px',
     margin: '0 auto',
     padding: '20px',
-    backgroundColor: '#80af818c',
+    backgroundColor: 'rgba(168, 213, 186, 0.5)',  // Light green background with transparency
     borderRadius: '10px',
     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
   },
@@ -94,7 +111,7 @@ const styles = {
     borderCollapse: 'collapse',
   },
   thead: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#2B702E',  // Dark green
     color: 'white',
   },
   th: {
