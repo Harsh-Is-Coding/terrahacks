@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+### EcoCoin Devpost Reflection
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Project Name
+**EcoCoin**
 
-## Available Scripts
+#### Project Description
+EcoCoin is an eco-friendly cryptocurrency that rewards individuals for their environmental contributions. Through our platform, EcoHub, users can participate in events and activities that benefit the planet, earning EcoCoins as they make a positive impact.
 
-In the project directory, you can run:
+#### Inspiration
+We were inspired by the growing need for innovative solutions to combat environmental issues. According to Pew Research, 80% of people don't act on their environmental concerns. Additionally, 55% of people don't know how to help the environment (Guardian). Yet, 0% of people don't use the environment—it's essential to all of us (common sense). We wanted to create a system that not only promotes sustainable actions but also rewards individuals for their contributions to the environment.
 
-### `npm start`
+#### What it Does
+EcoCoin incentivizes eco-friendly behavior by awarding cryptocurrency for participating in environmentally beneficial activities and events. Users can track their impact and earn rewards, fostering a community focused on sustainability.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### How We Built It
+We built EcoCoin using a combination of:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **React**: For the front end.
+- **Firebase**: For the backend, including Firestore for the database and Firebase Authentication.
+- **Mapbox**: For geolocation services and map visualization.
+- **Google Cloud**: To support our infrastructure.
+- **Blockchain-like Technology**: To create a secure and eco-friendly token reward system.
 
-### `npm test`
+#### Challenges We Ran Into
+Developing an eco-friendly blockchain was an extremely innovative and challenging idea. Ensuring that our blockchain-like technology was both environmentally sustainable and efficient required significant research and development. Integrating geolocation services accurately and ensuring that event locations were correctly mapped posed additional technical hurdles. Implementing a secure and efficient reward system was also complex, requiring careful consideration of both security and user experience.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Accomplishments
+We are proud of successfully creating a functional prototype that accurately tracks environmental contributions and rewards users with EcoCoins. The seamless integration of various technologies to create a cohesive platform was a significant achievement.
 
-### `npm run build`
+#### What We Learned
+Through this project, we learned a great deal about blockchain technology, geolocation services, and the importance of user experience design. We also gained valuable insights into project management and collaborative development.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### What's Next
+Future improvements include refining the reward algorithm, expanding the types of activities that earn EcoCoins, and enhancing the user interface. We also plan to partner with environmental organizations to host more events and increase the platform's impact.
