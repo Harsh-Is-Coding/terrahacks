@@ -35,7 +35,7 @@ function timestampToDateString(timestamp) {
     }
     return (
       <div className="App">
-        <MapboxExample className='map' events={data}/>
+        <MapboxExample className='map' events={data} mapbox={process.env.REACT_APP_MAPBOK_ACCESS_TOKEN}/>
         <Row className='eventHolder'>
         {data.map((event, index) => (
             <Col md={4} key={index} className='Event'>

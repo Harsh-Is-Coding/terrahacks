@@ -38,7 +38,7 @@ const MapboxExample = (props) => {
 
 
 
-    mapboxgl.accessToken = 'pk.eyJ1IjoiaHNodWtsYTUiLCJhIjoiY2x6ZTVpZjhzMHRsMTJpb20yM3hjYW5jNCJ9.Gt2J_52RU6tyreG5E2F-pQ';
+    mapboxgl.accessToken = props.mapbox;
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: 'mapbox://styles/mapbox/streets-v12',
